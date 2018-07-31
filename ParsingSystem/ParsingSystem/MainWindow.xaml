@@ -8,11 +8,11 @@
         Title="MainWindow" Height="450" Width="800">
 	<Grid>
 		<Button x:Name="btnBrowseFile" Click="btnOpenFile_Click" Content="Browse..." Margin="488,141,143.6,246"/>
-		<TextBox Name="txtEditorBrowse" Margin="24,141,418.6,0" Width="351" RenderTransformOrigin="0.5,0.5" Height="27" VerticalAlignment="Top" />
+		<TextBox Name="txtEditorBrowse" Margin="24,141,386.6,0" RenderTransformOrigin="0.5,0.5" Height="27" VerticalAlignment="Top" />
 		<Button x:Name="btnSaveFile" Click="btnSaveFile_Click" Content="Save to:" Margin="488,194,143.6,195"/>
-		<TextBox x:Name="txtEditorSave" Margin="24,194,418.6,0" Width="351" RenderTransformOrigin="0.5,0.5" Height="27" VerticalAlignment="Top" />
-		<Button x:Name="btnConfigure" Click="btnConfigure_Click" Content="Save to:" Margin="488,256,143.6,133"/>
-		<TextBox x:Name="txtEditorEmail" Margin="24,260,418.6,0" Width="351" RenderTransformOrigin="0.5,0.5" Height="27" VerticalAlignment="Top" />
+		<TextBox x:Name="txtEditorSave" Margin="24,194,386.6,0" RenderTransformOrigin="0.5,0.5" Height="27" VerticalAlignment="Top" />
+		<Button x:Name="btnConfigure" Click="btnConfigure_Click" Content="Configure Email" Margin="488,256,143.6,133"/>
+		<TextBox x:Name="txtEditorEmail" Margin="24,260,386.6,0" RenderTransformOrigin="0.5,0.5" Height="27" VerticalAlignment="Top" />
 		<Button x:Name="btnSettings" Click="btnSettings_Click" Content="Settings" Margin="339,355,292.6,34"/>
 		<Button x:Name="btnScan" Click="btnScan_Click" Content="Scan" Margin="339,34,292.6,355"/>
 
