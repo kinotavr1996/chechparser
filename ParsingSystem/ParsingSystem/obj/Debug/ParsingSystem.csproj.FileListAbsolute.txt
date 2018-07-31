@@ -1,0 +1,15 @@
+C:\Users\admin\Documents\Visual Studio 2017\Freelance\chechparser\ParsingSystem\ParsingSystem\bin\Debug\ParsingSystem.exe.config
+C:\Users\admin\Documents\Visual Studio 2017\Freelance\chechparser\ParsingSystem\ParsingSystem\bin\Debug\ParsingSystem.exe
+C:\Users\admin\Documents\Visual Studio 2017\Freelance\chechparser\ParsingSystem\ParsingSystem\bin\Debug\ParsingSystem.pdb
+C:\Users\admin\Documents\Visual Studio 2017\Freelance\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem.csprojAssemblyReference.cache
+C:\Users\admin\Documents\Visual Studio 2017\Freelance\chechparser\ParsingSystem\ParsingSystem\obj\Debug\MainWindow.g.cs
+C:\Users\admin\Documents\Visual Studio 2017\Freelance\chechparser\ParsingSystem\ParsingSystem\obj\Debug\App.g.cs
+C:\Users\admin\Documents\Visual Studio 2017\Freelance\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem_MarkupCompile.cache
+C:\Users\admin\Documents\Visual Studio 2017\Freelance\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem_MarkupCompile.lref
+C:\Users\admin\Documents\Visual Studio 2017\Freelance\chechparser\ParsingSystem\ParsingSystem\obj\Debug\MainWindow.baml
+C:\Users\admin\Documents\Visual Studio 2017\Freelance\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem.g.resources
+C:\Users\admin\Documents\Visual Studio 2017\Freelance\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem.Properties.Resources.resources
+C:\Users\admin\Documents\Visual Studio 2017\Freelance\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem.csproj.GenerateResource.cache
+C:\Users\admin\Documents\Visual Studio 2017\Freelance\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem.csproj.CoreCompileInputs.cache
+C:\Users\admin\Documents\Visual Studio 2017\Freelance\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem.exe
+C:\Users\admin\Documents\Visual Studio 2017\Freelance\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem.pdb
