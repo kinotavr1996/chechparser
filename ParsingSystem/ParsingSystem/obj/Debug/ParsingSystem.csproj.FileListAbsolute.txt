@@ -13,3 +13,7 @@ C:\Users\admin\Documents\Visual Studio 2017\Freelance\chechparser\ParsingSystem\
 C:\Users\admin\Documents\Visual Studio 2017\Freelance\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem.csproj.CoreCompileInputs.cache
 C:\Users\admin\Documents\Visual Studio 2017\Freelance\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem.exe
 C:\Users\admin\Documents\Visual Studio 2017\Freelance\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem.pdb
+C:\Users\admin\Documents\Visual Studio 2017\Freelance\chechparser\ParsingSystem\ParsingSystem\bin\Debug\HtmlAgilityPack.dll
+C:\Users\admin\Documents\Visual Studio 2017\Freelance\chechparser\ParsingSystem\ParsingSystem\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\admin\Documents\Visual Studio 2017\Freelance\chechparser\ParsingSystem\ParsingSystem\bin\Debug\HtmlAgilityPack.xml
+C:\Users\admin\Documents\Visual Studio 2017\Freelance\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem.csproj.CopyComplete

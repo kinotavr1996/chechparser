@@ -1,4 +1,7 @@
-﻿using Microsoft.Win32;
+﻿using HtmlAgilityPack;
+using Microsoft.Win32;
+using ParsingSystem.Models;
+using ParsingSystem.Proccessor;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,9 +32,23 @@ namespace ParsingSystem
 
 		private void btnOpenFile_Click(object sender, RoutedEventArgs e)
 		{
-			OpenFileDialog openFileDialog = new OpenFileDialog();
-			if (openFileDialog.ShowDialog() == true)
-				txtEditorBrowse.Text = File.ReadAllText(openFileDialog.FileName);
+			//var openFileDialog = new OpenFileDialog();
+			//if (openFileDialog.ShowDialog() == true)
+			//	txtEditorBrowse.Text = File.ReadAllText(openFileDialog.FileName);
+			var tempUrl = "C:\\Users\\admin\\Downloads\\AAA.xlsx";
+			//var productList = Load(openFileDialog.FileName);
+			var productList = Load(tempUrl);
+			var priceList = new List<string>();
+			foreach(var item in productList)
+			{
+				var doc = new HtmlWeb().Load(item.Url);
+				var elements = doc.DocumentNode.SelectNodes("//*[@class=\"pricen\"]");
+				priceList.AddRange(elements.Select(x => string.IsNullOrEmpty(x.InnerText.ToString()) ?
+										x.InnerText.ToString() :
+										x.InnerHtml.ToString()
+								));
+			}
+
 		}
 
 		private void btnSaveFile_Click(object sender, RoutedEventArgs e)
@@ -68,5 +85,13 @@ namespace ParsingSystem
 		{
 
 		}
+
+		private List<ProductInfo> Load(string path)
+		{
+			var excelProccessor = new ExcelParserProccessor();
+			excelProccessor.Open(path);
+			var productList = excelProccessor.Read();
+			return productList;
+		} 
 	}
 }
