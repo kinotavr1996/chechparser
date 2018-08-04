@@ -72,7 +72,7 @@ namespace ParsingSystem
 		private List<ProductInfo> Load(string path)
 		{
 			excelProccessor.Open(path);
-			var productList = excelProccessor.ReadFromSheetBySheetIndex();
+			var productList = excelProccessor.Read();
 			return productList;
 		}
 
@@ -108,6 +108,16 @@ namespace ParsingSystem
 				Console.Write(ex);
 				excelProccessor.Quit();
 			}
+		}
+
+		private void ProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+		{
+
+		}
+
+		private void btnOpenSettingsFile_Click(object sender, RoutedEventArgs e)
+		{
+
 		}
 	}
 }

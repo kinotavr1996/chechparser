@@ -92,7 +92,7 @@ namespace ParsingSystem.Proccessor
 			}
 			return productList;
 		}
-		public List<ProductInfo> ReadFromAllSheets()
+		public List<ProductInfo> Read()
 		{
 			var productList = new List<ProductInfo>();
 			for (int i = 1; i <= MyApp.Sheets.Count; i++)
