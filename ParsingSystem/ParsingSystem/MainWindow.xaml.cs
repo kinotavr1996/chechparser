@@ -25,6 +25,9 @@ namespace ParsingSystem
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		private readonly ExcelParserProccessor excelProccessor = new ExcelParserProccessor();
+
+		private readonly OpenFileDialog openFileDialog = new OpenFileDialog();
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -32,43 +35,23 @@ namespace ParsingSystem
 
 		private void btnOpenFile_Click(object sender, RoutedEventArgs e)
 		{
-			//var openFileDialog = new OpenFileDialog();
-			//if (openFileDialog.ShowDialog() == true)
-			//	txtEditorBrowse.Text = File.ReadAllText(openFileDialog.FileName);
-			var tempUrl = "C:\\Users\\admin\\Downloads\\AAA.xlsx";
-			//var productList = Load(openFileDialog.FileName);
-			var productList = Load(tempUrl);
-			var priceList = new List<string>();
-			foreach(var item in productList)
-			{
-				var doc = new HtmlWeb().Load(item.Url);
-				var elements = doc.DocumentNode.SelectNodes("//*[@class=\"pricen\"]");
-				priceList.AddRange(elements.Select(x => string.IsNullOrEmpty(x.InnerText.ToString()) ?
-										x.InnerText.ToString() :
-										x.InnerHtml.ToString()
-								));
-			}
-
+			if (openFileDialog.ShowDialog() == true)
+				txtEditorBrowse.Text = File.ReadAllText(openFileDialog.FileName);
 		}
 
 		private void btnSaveFile_Click(object sender, RoutedEventArgs e)
 		{
 			var dlg = new SaveFileDialog
 			{
-				FileName = "Result", // Default file name
-				DefaultExt = ".text", // Default file extension
-				Filter = "Text documents (.txt)|*.txt" // Filter files by extension
+				FileName = excelProccessor.Name, // Default file name
+				DefaultExt = ".xlsx", // Default file extension
+				Filter = "Excel documents (.xlsx)|*.xlsx" // Filter files by extension
 			};
-
-			// Show save file dialog box
 			Nullable<bool> result = dlg.ShowDialog();
-
-			// Process save file dialog box results
-			if (result == true)
-			{
-				// Save document
-				string filename = dlg.FileName;
-			}
+			if (result != true) return;
+			// Save document
+			excelProccessor.Name = dlg.SafeFileName;
+			excelProccessor.Save();
 		}
 
 		private void btnConfigure_Click(object sender, RoutedEventArgs e)
@@ -78,7 +61,7 @@ namespace ParsingSystem
 
 		private void btnScan_Click(object sender, RoutedEventArgs e)
 		{
-
+			Parse();
 		}
 
 		private void btnSettings_Click(object sender, RoutedEventArgs e)
@@ -88,10 +71,43 @@ namespace ParsingSystem
 
 		private List<ProductInfo> Load(string path)
 		{
-			var excelProccessor = new ExcelParserProccessor();
 			excelProccessor.Open(path);
-			var productList = excelProccessor.Read();
+			var productList = excelProccessor.ReadFromSheetBySheetIndex();
 			return productList;
-		} 
+		}
+
+		private void Parse()
+		{
+			try
+			{
+				var productList = Load(openFileDialog.FileName);
+				var priceList = new List<string>();
+				foreach (var item in productList)
+				{
+					if (string.IsNullOrEmpty(item.Url)) continue;
+					var doc = new HtmlWeb().Load(item.Url);
+					var elements = doc.DocumentNode.SelectNodes("//*[@class=\"single-price\"]");
+					if (elements == null) continue;
+					foreach (var el in elements)
+					{
+						var price = new string((string.IsNullOrEmpty(el.InnerText.ToString()) ?
+									el.InnerText.Where(x => char.IsDigit(x)) :
+									el.InnerHtml.Where(x => char.IsDigit(x))).ToArray());
+						decimal.TryParse(price, out decimal parsedPrice);
+						item.Prices.Add(parsedPrice);
+					}
+					item.Prices = item.Prices.OrderBy(x => x).ToList();
+					item.LowestPrice = item.Prices.FirstOrDefault();
+					item.Prices.Remove(item.LowestPrice);
+				}
+
+				excelProccessor.Write(productList);
+			}
+			catch (Exception ex)
+			{
+				Console.Write(ex);
+				excelProccessor.Quit();
+			}
+		}
 	}
 }
