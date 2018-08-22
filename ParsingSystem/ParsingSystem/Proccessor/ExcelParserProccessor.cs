@@ -27,10 +27,6 @@ namespace ParsingSystem.Proccessor
 				Visible = false
 			};
 			MyBook = MyApp.Workbooks.Open(path);
-
-		}
-		private void Initialize()
-		{
 			Name = MyBook.Name;
 		}
 		public Excel.Application Create()
