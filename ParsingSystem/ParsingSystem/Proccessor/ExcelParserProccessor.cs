@@ -27,14 +27,10 @@ namespace ParsingSystem.Proccessor
 				Visible = false
 			};
 			MyBook = MyApp.Workbooks.Open(path);
-			
+
 		}
 		private void Initialize()
 		{
-			MySheet = (Excel.Worksheet)MyBook.Sheets[1]; // Explicit cast is not required here
-			var info = MySheet.Cells.SpecialCells(Excel.XlCellType.xlCellTypeLastCell, Type.Missing);
-			LastRow = info.Row;
-			LastColumn = info.Column;
 			Name = MyBook.Name;
 		}
 		public Excel.Application Create()
@@ -67,27 +63,33 @@ namespace ParsingSystem.Proccessor
 		}
 		public void Quit()
 		{
-			MyBook.Close(0);
-			MyApp.Quit();
+			if (MyApp != null)
+			{
+				MyBook.Close(0);
+				MyApp.Quit();
+			}
 		}
 		public List<ProductInfo> ReadSheetBySheetIndex(int sheetIndex)
 		{
 			var productList = new List<ProductInfo>();
-
 			if (sheetIndex > MyApp.Sheets.Count) return productList;
-			MySheet = (Excel.Worksheet)MyBook.Sheets[sheetIndex]; // Explicit cast is not required here
-			for (int index = 2; index <= LastRow; index++)
+			UpdateCurrentSheetInfo(sheetIndex);
+			for (int index = 20; index <= LastRow; index++)
 			{
 				var MyValues = (Array)MySheet.get_Range("A" +
-				   index.ToString(), "AI" + index.ToString()).Cells.Value;
-				int.TryParse(MyValues.GetValue(1, 7)?.ToString(), out int itemId);
-				decimal.TryParse(MyValues.GetValue(1, 12)?.ToString(), out decimal yourPrice);
+				   index.ToString(), "G" + index.ToString()).Cells.Value;
+				int.TryParse(MyValues.GetValue(1, 3)?.ToString(), out int itemId);
+				decimal.TryParse(MyValues.GetValue(1, 6)?.ToString(), out decimal yourPrice);
+				decimal.TryParse(MyValues.GetValue(1, 7)?.ToString(), out decimal postageCost);
 				productList.Add(new ProductInfo
 				{
+					Category = MyValues.GetValue(1, 1)?.ToString() ?? string.Empty,
 					ItemId = itemId,
-					Url = MyValues.GetValue(1, 9)?.ToString() ?? string.Empty,
-					YourPrice = yourPrice,
-					Prices = new List<decimal>()
+					Description = MyValues.GetValue(1, 4)?.ToString() ?? string.Empty,
+					Url = MyValues.GetValue(1, 5)?.ToString() ?? string.Empty,
+					Price = yourPrice,
+					PostageCost = postageCost,
+					LowestPrice = yourPrice
 				});
 			}
 			return productList;
@@ -95,7 +97,8 @@ namespace ParsingSystem.Proccessor
 		public List<ProductInfo> Read()
 		{
 			var productList = new List<ProductInfo>();
-			for (int i = 1; i <= MyApp.Sheets.Count; i++)
+			AddIfNotExistMasterSheet();
+			for (int i = 2; i <= MyApp.Sheets.Count; i++)
 			{
 				var data = ReadSheetBySheetIndex(i);
 				if (data != null) productList.AddRange(data);
@@ -105,22 +108,67 @@ namespace ParsingSystem.Proccessor
 
 		public void Write(List<ProductInfo> productList)
 		{
-			for (int i = 2; i <= LastRow; i++)
+			if (productList?.Count == 0) return;
+			for (int i = 2; i < MyApp.Sheets.Count; i++)
 			{
-				var flag = int.TryParse(MySheet.Cells[i, 7].Value, out int itemId);
-				if (!flag) continue;
-				var product = productList.FirstOrDefault(x => x.ItemId == itemId);
-				MySheet.Cells[i, 16] = product.LowestPrice;
-				var j = 17;
-				foreach (var price in product.Prices.OrderBy(x => x))
+				UpdateCurrentSheetInfo(i);
+				for (int j = 20; j <= LastRow; j++)
 				{
-					MySheet.Cells[i, j] = price.ToString();
-					j++;
+					var flag = int.TryParse(MySheet.Cells[j, 3].Value, out int itemId);
+					if (!flag) continue;
+					var product = productList.FirstOrDefault(x => x.ItemId == itemId);
+					if (product == null) continue;
+					if (product.Price != product.LowestPrice)
+					{
+						MySheet.Cells[j, 7] = product.LowestPrice;
+						MySheet.Cells[j, 7].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Green);
+						MySheet.Cells[j, 6].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
+					}
 				}
-
 			}
+			WriteInfoToMasterSheet(productList);
 			Name = $"{DateTime.Now.ToString("yyyyMMddHHmmss")}--{MyBook.Name}";
 		}
 
+		private void AddIfNotExistMasterSheet()
+		{
+			foreach (Excel.Worksheet sheet in MyApp.Sheets)
+				if (sheet.Name == "Master Sheet") return;
+
+			var xlNewSheet = (Excel.Worksheet)MyApp.Sheets.Add(MyApp.Sheets[1], Type.Missing, Type.Missing, Type.Missing);
+			xlNewSheet.Name = "Master Sheet";
+		}
+
+		private void UpdateCurrentSheetInfo(int sheetIndex)
+		{
+			MySheet = (Excel.Worksheet)MyBook.Sheets[sheetIndex]; // Explicit cast is not required here
+			var info = MySheet.Cells.SpecialCells(Excel.XlCellType.xlCellTypeLastCell, Type.Missing);
+			LastRow = info.Row;
+			LastColumn = info.Column;
+		}
+
+		private void WriteInfoToMasterSheet(List<ProductInfo> productList)
+		{
+			UpdateCurrentSheetInfo(1);
+			foreach (var product in productList)
+			{
+				for (int j = 20; j <= LastRow; j++)
+				{
+					if (!product.IsParsed || product.Price != product.LowestPrice)
+					{
+						MySheet.Cells[j, 1] = product.Category;
+						MySheet.Cells[j, 3] = product.ItemId;
+						MySheet.Cells[j, 4] = product.Description;
+						MySheet.Cells[j, 5] = product.Url;
+						MySheet.Cells[j, 5].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
+						MySheet.Cells[j, 6] = product.Price;
+						MySheet.Cells[j, 6].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
+						MySheet.Cells[j, 7] = product.LowestPrice;
+						MySheet.Cells[j, 7].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Green);
+					}
+				}
+			}
+
+		}
 	}
 }

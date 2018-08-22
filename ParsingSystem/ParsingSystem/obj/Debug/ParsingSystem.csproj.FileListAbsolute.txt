@@ -17,3 +17,23 @@ C:\Users\admin\Documents\Visual Studio 2017\Freelance\chechparser\ParsingSystem\
 C:\Users\admin\Documents\Visual Studio 2017\Freelance\chechparser\ParsingSystem\ParsingSystem\bin\Debug\HtmlAgilityPack.pdb
 C:\Users\admin\Documents\Visual Studio 2017\Freelance\chechparser\ParsingSystem\ParsingSystem\bin\Debug\HtmlAgilityPack.xml
 C:\Users\admin\Documents\Visual Studio 2017\Freelance\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem.csproj.CopyComplete
+C:\Users\ohaie\Downloads\chechparser\ParsingSystem\ParsingSystem\bin\Debug\ParsingSystem.exe.config
+C:\Users\ohaie\Downloads\chechparser\ParsingSystem\ParsingSystem\bin\Debug\ParsingSystem.exe
+C:\Users\ohaie\Downloads\chechparser\ParsingSystem\ParsingSystem\bin\Debug\ParsingSystem.pdb
+C:\Users\ohaie\Downloads\chechparser\ParsingSystem\ParsingSystem\bin\Debug\HtmlAgilityPack.dll
+C:\Users\ohaie\Downloads\chechparser\ParsingSystem\ParsingSystem\bin\Debug\System.Drawing.Common.dll
+C:\Users\ohaie\Downloads\chechparser\ParsingSystem\ParsingSystem\bin\Debug\System.Drawing.Primitives.dll
+C:\Users\ohaie\Downloads\chechparser\ParsingSystem\ParsingSystem\bin\Debug\HtmlAgilityPack.xml
+C:\Users\ohaie\Downloads\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem.csprojAssemblyReference.cache
+C:\Users\ohaie\Downloads\chechparser\ParsingSystem\ParsingSystem\obj\Debug\MainWindow.g.cs
+C:\Users\ohaie\Downloads\chechparser\ParsingSystem\ParsingSystem\obj\Debug\App.g.cs
+C:\Users\ohaie\Downloads\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem_MarkupCompile.cache
+C:\Users\ohaie\Downloads\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem_MarkupCompile.lref
+C:\Users\ohaie\Downloads\chechparser\ParsingSystem\ParsingSystem\obj\Debug\MainWindow.baml
+C:\Users\ohaie\Downloads\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem.g.resources
+C:\Users\ohaie\Downloads\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem.Properties.Resources.resources
+C:\Users\ohaie\Downloads\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem.csproj.GenerateResource.cache
+C:\Users\ohaie\Downloads\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem.csproj.CoreCompileInputs.cache
+C:\Users\ohaie\Downloads\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem.csproj.CopyComplete
+C:\Users\ohaie\Downloads\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem.exe
+C:\Users\ohaie\Downloads\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem.pdb

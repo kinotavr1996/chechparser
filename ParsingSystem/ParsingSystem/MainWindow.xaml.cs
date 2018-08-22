@@ -84,9 +84,9 @@ namespace ParsingSystem
 				var priceList = new List<string>();
 				foreach (var item in productList)
 				{
-					if (string.IsNullOrEmpty(item.Url)) continue;
+					if (string.IsNullOrEmpty(item.Url) || !Uri.IsWellFormedUriString(item.Url, UriKind.RelativeOrAbsolute)) continue;
 					var doc = new HtmlWeb().Load(item.Url);
-					var elements = doc.DocumentNode.SelectNodes("//*[@class=\"single-price\"]");
+					var elements = doc.DocumentNode.SelectNodes("//*[@class=\"pricen\"]");
 					if (elements == null) continue;
 					foreach (var el in elements)
 					{
@@ -94,18 +94,15 @@ namespace ParsingSystem
 									el.InnerText.Where(x => char.IsDigit(x)) :
 									el.InnerHtml.Where(x => char.IsDigit(x))).ToArray());
 						decimal.TryParse(price, out decimal parsedPrice);
-						item.Prices.Add(parsedPrice);
+						item.LowestPrice = parsedPrice < item.LowestPrice ? parsedPrice : item.LowestPrice;
+						item.IsParsed = true;
 					}
-					item.Prices = item.Prices.OrderBy(x => x).ToList();
-					item.LowestPrice = item.Prices.FirstOrDefault();
-					item.Prices.Remove(item.LowestPrice);
 				}
-
 				excelProccessor.Write(productList);
 			}
 			catch (Exception ex)
 			{
-				Console.Write(ex);
+				MessageBox.Show(ex.Message, "Exception");
 				excelProccessor.Quit();
 			}
 		}
