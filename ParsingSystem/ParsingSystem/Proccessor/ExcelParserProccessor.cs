@@ -27,6 +27,7 @@ namespace ParsingSystem.Proccessor
 				Visible = false
 			};
 			MyBook = MyApp.Workbooks.Open(path);
+			MyApp.DisplayAlerts = false;
 			Name = MyBook.Name;
 		}
 		public Excel.Application Create()
@@ -51,10 +52,11 @@ namespace ParsingSystem.Proccessor
 			path = path ?? MyBook.Path;
 			name = name ?? Name;
 			file = file ?? MyBook;
-			file.SaveAs($"{path}\\{name}", Excel.XlFileFormat.xlOpenXMLWorkbook, Missing.Value,
-					Missing.Value, false, false, Excel.XlSaveAsAccessMode.xlNoChange,
-					Excel.XlSaveConflictResolution.xlUserResolution, true,
-					Missing.Value, Missing.Value, Missing.Value);
+			file.Save();
+			//file.SaveAs($"{path}\\{name}", Excel.XlFileFormat.xlOpenXMLWorkbook, Missing.Value,
+			//		Missing.Value, false, false, Excel.XlSaveAsAccessMode.xlNoChange,
+			//		Excel.XlSaveConflictResolution.xlUserResolution, true,
+			//		Missing.Value, Missing.Value, Missing.Value);
 			Quit();
 		}
 		public void Quit()
@@ -153,9 +155,9 @@ namespace ParsingSystem.Proccessor
 					MySheet.Cells[j, 1] = product.Category;
 					MySheet.Cells[j, 3] = product.ItemId;
 					MySheet.Cells[j, 4] = product.Description;
-					MySheet.Cells[j, 5] = product.Url;
 					if(!product.IsParsed)
 						MySheet.Cells[j, 5].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
+					MySheet.Cells[j, 5] = product.Url;
 					MySheet.Cells[j, 6] = product.Price;
 					MySheet.Cells[j, 6].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
 					MySheet.Cells[j, 7] = product.LowestPrice;

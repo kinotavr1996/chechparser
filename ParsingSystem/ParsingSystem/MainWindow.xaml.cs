@@ -23,12 +23,9 @@ namespace ParsingSystem
 		public MainWindow()
 		{
 			InitializeComponent();
-			if ((bool)RunInBackground.IsChecked)
-			{
-				dtClockTime.Interval = new TimeSpan(0, 1, 0); //in Hour, Minutes, Second.
-				dtClockTime.Tick += dtClockTime_Tick;
-				dtClockTime.Start();
-			}
+			dtClockTime.Interval = new TimeSpan(0, 0, 30); //in Hour, Minutes, Second.
+			dtClockTime.Tick += dtClockTime_Tick;
+			if ((bool)RunInBackground.IsChecked) dtClockTime.Start();
 		}
 		private void dtClockTime_Tick(object sender, EventArgs e)
 		{
@@ -85,7 +82,7 @@ namespace ParsingSystem
 				var priceList = new List<string>();
 				foreach (var item in productList)
 				{
-					if (string.IsNullOrEmpty(item.Url) || !Uri.IsWellFormedUriString(item.Url, UriKind.RelativeOrAbsolute)) continue;
+					if (string.IsNullOrEmpty(item.Url) || !Uri.IsWellFormedUriString(item.Url, UriKind.Absolute)) continue;
 					var doc = new HtmlWeb().Load(item.Url);
 					var elements = doc.DocumentNode.SelectNodes("//*[@class=\"pricen\"]");
 					if (elements == null) continue;
@@ -105,6 +102,7 @@ namespace ParsingSystem
 					}
 				}
 				excelProccessor.Write(productList);
+				MessageBox.Show("Parsing completed successfully", "Notification");
 			}
 			catch (Exception ex)
 			{

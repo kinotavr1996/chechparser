@@ -12,6 +12,6 @@
 		<Button x:Name="btnSaveFile" Click="btnSaveFile_Click" Content="Save to:" Margin="0,60,51,208"  HorizontalAlignment="Right" Width="50"/>
 		<TextBox x:Name="txtEditorSave" Margin="24,60,121,0" RenderTransformOrigin="0.5,0.5" Height="27" VerticalAlignment="Top"  />
 		<Button x:Name="btnScan" Click="btnScan_Click" Content="Scan" Margin="113,116,121,153" />
-		<CheckBox Name="RunInBackground" Content="Run in background " IsChecked="True" Click="RunInBackground_Click" HorizontalAlignment="Left" Margin="24,158,0,0" VerticalAlignment="Top"/>
+		<CheckBox Name="RunInBackground" Content="Run in background " IsChecked="False" Click="RunInBackground_Click" HorizontalAlignment="Left" Margin="24,158,0,0" VerticalAlignment="Top"/>
 	</Grid>
 </Window>

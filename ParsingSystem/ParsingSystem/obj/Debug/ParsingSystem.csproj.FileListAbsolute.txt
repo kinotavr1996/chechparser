@@ -37,3 +37,5 @@ C:\Users\ohaie\Downloads\chechparser\ParsingSystem\ParsingSystem\obj\Debug\Parsi
 C:\Users\ohaie\Downloads\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem.csproj.CopyComplete
 C:\Users\ohaie\Downloads\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem.exe
 C:\Users\ohaie\Downloads\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem.pdb
+C:\Users\admin\Documents\Visual Studio 2017\Freelance\chechparser\ParsingSystem\ParsingSystem\bin\Debug\System.Drawing.Common.dll
+C:\Users\admin\Documents\Visual Studio 2017\Freelance\chechparser\ParsingSystem\ParsingSystem\bin\Debug\System.Drawing.Primitives.dll
