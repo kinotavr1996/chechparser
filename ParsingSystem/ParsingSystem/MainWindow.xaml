@@ -5,32 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ParsingSystem"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-	<TabControl HorizontalAlignment="Left"  Margin="10,10,0,0" VerticalAlignment="Top" >
-		<TabItem Header="Main">
-			<Grid>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="528*"/>
-					<ColumnDefinition Width="265*"/>
-				</Grid.ColumnDefinitions>
-				<Button x:Name="btnBrowseFile" Click="btnOpenFile_Click" Content="Browse..." Margin="27.2,141,143.454,213.6" Grid.Column="1"/>
-				<TextBox Name="txtEditorBrowse" Margin="24,141,121.4,0" RenderTransformOrigin="0.5,0.5" Height="27" VerticalAlignment="Top" />
-				<Button x:Name="btnSaveFile" Click="btnSaveFile_Click" Content="Save to:" Margin="27.2,194,143.454,160.6" Grid.Column="1"/>
-				<TextBox x:Name="txtEditorSave" Margin="24,194,121.4,0" RenderTransformOrigin="0.5,0.5" Height="27" VerticalAlignment="Top" />
-				<Button x:Name="btnConfigure" Click="btnConfigure_Click" Content="Configure Email" Margin="27.2,256,143.454,94.6" Grid.Column="1"/>
-				<TextBox x:Name="txtEditorEmail" Margin="24,260,121.4,0" RenderTransformOrigin="0.5,0.5" Height="27" VerticalAlignment="Top" />
-				<Button x:Name="btnSettings" Click="btnSettings_Click" Content="Settings" Margin="339,355,27.8,-0.4"/>
-				<ProgressBar Minimum="0" Maximum="100"  Height="27" Value="75" Grid.ColumnSpan="2" Margin="122,315,143.6,78" Name="pbStatus" ValueChanged="ProgressBar_ValueChanged" />
-				<Button x:Name="btnScan" Click="btnScan_Click" Content="Scan" Margin="339,34,27.8,323.6"/>
-			</Grid>
-		</TabItem>
-		<TabItem Header="Settings">
-			<Grid Background="#FFE5E5E5" Height="371" Width="774">
-				<Button x:Name="btnBrowseSettingFile" Click="btnOpenSettingsFile_Click" Content="Browse..." Height="27" Margin="500,10,96,334" RenderTransformOrigin="1.085,-1.076"/>
-				<TextBox Name="txtEditorBrowseSetting" Margin="10,10,381,0" RenderTransformOrigin="0.5,0.5" Height="27" VerticalAlignment="Top" />
-			</Grid>
-
-		</TabItem>
-	</TabControl>
-
+        Title="Heureca" Height="229.767" Width="365.254">
+	<Grid HorizontalAlignment="Left" Height="295" Margin="10,10,0,0" VerticalAlignment="Top" Width="323">
+		<Button x:Name="btnBrowseFile" Click="btnOpenFile_Click" Content="Browse..." Margin="0,8,51,260"  HorizontalAlignment="Right" Width="50"/>
+		<TextBox Name="txtEditorBrowse" Margin="24,8,121,0" RenderTransformOrigin="0.5,0.5" Height="27" VerticalAlignment="Top"/>
+		<Button x:Name="btnSaveFile" Click="btnSaveFile_Click" Content="Save to:" Margin="0,60,51,208"  HorizontalAlignment="Right" Width="50"/>
+		<TextBox x:Name="txtEditorSave" Margin="24,60,121,0" RenderTransformOrigin="0.5,0.5" Height="27" VerticalAlignment="Top"  />
+		<Button x:Name="btnScan" Click="btnScan_Click" Content="Scan" Margin="113,116,121,153" />
+		<CheckBox Name="RunInBackground" Content="Run in background " IsChecked="True" Click="RunInBackground_Click" HorizontalAlignment="Left" Margin="24,158,0,0" VerticalAlignment="Top"/>
+	</Grid>
 </Window>

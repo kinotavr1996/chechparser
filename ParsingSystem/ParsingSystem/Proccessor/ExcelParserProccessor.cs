@@ -63,11 +63,8 @@ namespace ParsingSystem.Proccessor
 		}
 		public void Quit()
 		{
-			if (MyApp != null)
-			{
-				MyBook.Close(0);
-				MyApp.Quit();
-			}
+			if (MyBook != null) MyBook.Close(0);
+			if (MyApp != null) MyApp.Quit();
 		}
 		public List<ProductInfo> ReadSheetBySheetIndex(int sheetIndex)
 		{
@@ -109,25 +106,27 @@ namespace ParsingSystem.Proccessor
 		public void Write(List<ProductInfo> productList)
 		{
 			if (productList?.Count == 0) return;
-			for (int i = 2; i < MyApp.Sheets.Count; i++)
+			for (int i = 2; i <= MyApp.Sheets.Count; i++)
 			{
 				UpdateCurrentSheetInfo(i);
 				for (int j = 20; j <= LastRow; j++)
 				{
-					var flag = int.TryParse(MySheet.Cells[j, 3].Value, out int itemId);
+					var MyValues = (Array)MySheet.get_Range("A" + j.ToString(), "G" + j.ToString()).Cells.Value;
+					var flag = int.TryParse(MyValues.GetValue(1, 3)?.ToString(), out int itemId);
 					if (!flag) continue;
 					var product = productList.FirstOrDefault(x => x.ItemId == itemId);
 					if (product == null) continue;
 					if (product.Price != product.LowestPrice)
 					{
+						MySheet.Cells[j, 6].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
+						MySheet.Cells[j, 6] = product.Price;
 						MySheet.Cells[j, 7] = product.LowestPrice;
 						MySheet.Cells[j, 7].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Green);
-						MySheet.Cells[j, 6].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
 					}
 				}
 			}
 			WriteInfoToMasterSheet(productList);
-			Name = $"{DateTime.Now.ToString("yyyyMMddHHmmss")}--{MyBook.Name}";
+			//Name = $"{DateTime.Now.ToString("yyyyMMddHHmmss")}--{MyBook.Name}";
 		}
 
 		private void AddIfNotExistMasterSheet()
@@ -150,25 +149,23 @@ namespace ParsingSystem.Proccessor
 		private void WriteInfoToMasterSheet(List<ProductInfo> productList)
 		{
 			UpdateCurrentSheetInfo(1);
-			foreach (var product in productList)
+			for (int j = 20; j <= productList.Count; j++)
 			{
-				for (int j = 20; j <= LastRow; j++)
+				var product = productList[j - 20];
+				if (!product.IsParsed || product.Price != product.LowestPrice)
 				{
-					if (!product.IsParsed || product.Price != product.LowestPrice)
-					{
-						MySheet.Cells[j, 1] = product.Category;
-						MySheet.Cells[j, 3] = product.ItemId;
-						MySheet.Cells[j, 4] = product.Description;
-						MySheet.Cells[j, 5] = product.Url;
+					MySheet.Cells[j, 1] = product.Category;
+					MySheet.Cells[j, 3] = product.ItemId;
+					MySheet.Cells[j, 4] = product.Description;
+					MySheet.Cells[j, 5] = product.Url;
+					if(!product.IsParsed)
 						MySheet.Cells[j, 5].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
-						MySheet.Cells[j, 6] = product.Price;
-						MySheet.Cells[j, 6].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
-						MySheet.Cells[j, 7] = product.LowestPrice;
-						MySheet.Cells[j, 7].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Green);
-					}
+					MySheet.Cells[j, 6] = product.Price;
+					MySheet.Cells[j, 6].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
+					MySheet.Cells[j, 7] = product.LowestPrice;
+					MySheet.Cells[j, 7].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Green);
 				}
 			}
-
 		}
 	}
 }

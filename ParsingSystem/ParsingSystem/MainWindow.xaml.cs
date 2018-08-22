@@ -6,17 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace ParsingSystem
 {
@@ -26,21 +17,37 @@ namespace ParsingSystem
 	public partial class MainWindow : Window
 	{
 		private readonly ExcelParserProccessor excelProccessor = new ExcelParserProccessor();
-
+		private readonly DispatcherTimer dtClockTime = new DispatcherTimer();
+		private readonly long ticksBlocker = new DateTime(2018, 10, 1).Ticks;
 		private readonly OpenFileDialog openFileDialog = new OpenFileDialog();
 		public MainWindow()
 		{
 			InitializeComponent();
+			if ((bool)RunInBackground.IsChecked)
+			{
+				dtClockTime.Interval = new TimeSpan(0, 1, 0); //in Hour, Minutes, Second.
+				dtClockTime.Tick += dtClockTime_Tick;
+				dtClockTime.Start();
+			}
 		}
+		private void dtClockTime_Tick(object sender, EventArgs e)
+		{
+			Parse();
+			excelProccessor.Save();
+		}
+
 
 		private void btnOpenFile_Click(object sender, RoutedEventArgs e)
 		{
+			if (DateTime.UtcNow.Ticks >= ticksBlocker) return;
 			if (openFileDialog.ShowDialog() == true)
-				txtEditorBrowse.Text = File.ReadAllText(openFileDialog.FileName);
+				txtEditorBrowse.Text = openFileDialog.FileName;
 		}
 
 		private void btnSaveFile_Click(object sender, RoutedEventArgs e)
 		{
+			if (DateTime.UtcNow.Ticks >= ticksBlocker) return;
+
 			var dlg = new SaveFileDialog
 			{
 				FileName = excelProccessor.Name, // Default file name
@@ -51,22 +58,14 @@ namespace ParsingSystem
 			if (result != true) return;
 			// Save document
 			excelProccessor.Name = dlg.SafeFileName;
+			txtEditorSave.Text = dlg.SafeFileName;
 			excelProccessor.Save();
-		}
-
-		private void btnConfigure_Click(object sender, RoutedEventArgs e)
-		{
-
 		}
 
 		private void btnScan_Click(object sender, RoutedEventArgs e)
 		{
+			if (DateTime.UtcNow.Ticks >= ticksBlocker) return;
 			Parse();
-		}
-
-		private void btnSettings_Click(object sender, RoutedEventArgs e)
-		{
-
 		}
 
 		private List<ProductInfo> Load(string path)
@@ -78,6 +77,8 @@ namespace ParsingSystem
 
 		private void Parse()
 		{
+			if (DateTime.UtcNow.Ticks >= ticksBlocker) return;
+			if (string.IsNullOrEmpty(openFileDialog.FileName)) return;
 			try
 			{
 				var productList = Load(openFileDialog.FileName);
@@ -94,7 +95,12 @@ namespace ParsingSystem
 									el.InnerText.Where(x => char.IsDigit(x)) :
 									el.InnerHtml.Where(x => char.IsDigit(x))).ToArray());
 						decimal.TryParse(price, out decimal parsedPrice);
-						item.LowestPrice = parsedPrice < item.LowestPrice ? parsedPrice : item.LowestPrice;
+						if (parsedPrice < 150) continue;
+						if (item.LowestPrice > 0)
+							item.LowestPrice = parsedPrice < item.LowestPrice ? parsedPrice : item.LowestPrice;
+						else
+							item.LowestPrice = parsedPrice;
+
 						item.IsParsed = true;
 					}
 				}
@@ -107,14 +113,12 @@ namespace ParsingSystem
 			}
 		}
 
-		private void ProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+		private void RunInBackground_Click(object sender, RoutedEventArgs e)
 		{
-
-		}
-
-		private void btnOpenSettingsFile_Click(object sender, RoutedEventArgs e)
-		{
-
+			if ((bool)RunInBackground.IsChecked)
+				dtClockTime.Start();
+			else
+				dtClockTime.Stop();
 		}
 	}
 }
