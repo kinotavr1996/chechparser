@@ -6,12 +6,25 @@
         xmlns:local="clr-namespace:ParsingSystem"
         mc:Ignorable="d"
         Title="Heureca" Height="229.767" Width="365.254">
-	<Grid HorizontalAlignment="Left" Height="295" Margin="10,10,0,0" VerticalAlignment="Top" Width="323">
-		<Button x:Name="btnBrowseFile" Click="btnOpenFile_Click" Content="Browse..." Margin="0,8,51,260"  HorizontalAlignment="Right" Width="50"/>
-		<TextBox Name="txtEditorBrowse" Margin="24,8,121,0" RenderTransformOrigin="0.5,0.5" Height="27" VerticalAlignment="Top"/>
-		<Button x:Name="btnSaveFile" Click="btnSaveFile_Click" Content="Save to:" Margin="0,60,51,208"  HorizontalAlignment="Right" Width="50"/>
-		<TextBox x:Name="txtEditorSave" Margin="24,60,121,0" RenderTransformOrigin="0.5,0.5" Height="27" VerticalAlignment="Top"  />
-		<Button x:Name="btnScan" Click="btnScan_Click" Content="Scan" Margin="113,116,121,153" />
-		<CheckBox Name="RunInBackground" Content="Run in background " IsChecked="False" Click="RunInBackground_Click" HorizontalAlignment="Left" Margin="24,158,0,0" VerticalAlignment="Top"/>
-	</Grid>
+    <TabControl>
+        <TabItem Header="Main">
+            <Grid HorizontalAlignment="Left" Height="295" Margin="10,10,0,0" VerticalAlignment="Top" Width="323">
+                <Button x:Name="btnBrowseFile" Click="btnOpenFile_Click" Content="Browse..." Margin="0,8,51,260"  HorizontalAlignment="Right" Width="50"/>
+                <TextBox Name="txtEditorBrowse" Margin="24,8,121,0" RenderTransformOrigin="0.5,0.5" Height="27" VerticalAlignment="Top"/>
+                <Button x:Name="btnSaveFile" Click="btnSaveFile_Click" Content="Save to:" Margin="0,60,51,208"  HorizontalAlignment="Right" Width="50"/>
+                <TextBox x:Name="txtEditorSave" Margin="24,60,121,0" RenderTransformOrigin="0.5,0.5" Height="27" VerticalAlignment="Top"  />
+                <Button x:Name="btnScan" Click="btnScan_Click" Content="Scan" Margin="113,116,121,153" />
+                <CheckBox Name="RunInBackground" Content="Run in background " IsChecked="False" Click="RunInBackground_Click" HorizontalAlignment="Left" Margin="24,158,0,0" VerticalAlignment="Top"/>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Settings">
+            <Grid HorizontalAlignment="Left" Height="295" Margin="10,10,0,0" VerticalAlignment="Top" Width="323">
+                <TextBox Name="txtEditorMail" Margin="101,10,44,0" RenderTransformOrigin="0.5,0.5" Height="27" VerticalAlignment="Top"/>
+                <Label Name="txtLabelMail" Content="E-mail address" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                <TextBox x:Name="txtEditorPeriodicity" Margin="101,41,44,0" RenderTransformOrigin="0.5,0.5" Height="27" VerticalAlignment="Top"/>
+                <Label x:Name="txtLabelPeriodicity" Content="Periodicity" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
+            </Grid>
+        </TabItem>
+    </TabControl>
+
 </Window>
