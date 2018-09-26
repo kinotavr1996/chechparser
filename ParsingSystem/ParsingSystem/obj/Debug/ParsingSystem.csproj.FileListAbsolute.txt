@@ -58,3 +58,4 @@ C:\Users\ohaievskyi\Documents\chechparser\ParsingSystem\ParsingSystem\obj\Debug\
 C:\Users\ohaievskyi\Documents\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem.csproj.CopyComplete
 C:\Users\ohaievskyi\Documents\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem.exe
 C:\Users\ohaievskyi\Documents\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem.pdb
+C:\Users\ohaievskyi\Documents\chechparser\ParsingSystem\ParsingSystem\obj\Debug\ParsingSystem.csprojAssemblyReference.cache

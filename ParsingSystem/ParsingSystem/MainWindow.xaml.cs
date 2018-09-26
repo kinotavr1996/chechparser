@@ -17,13 +17,17 @@ namespace ParsingSystem
 	public partial class MainWindow : Window
 	{
 		private readonly ExcelParserProccessor excelProccessor = new ExcelParserProccessor();
-		private readonly DispatcherTimer dtClockTime = new DispatcherTimer();
+        private readonly MailingProcessor mailProccessor = new MailingProcessor();
+
+        private readonly DispatcherTimer dtClockTime = new DispatcherTimer();
 		private readonly long ticksBlocker = new DateTime(2018, 10, 1).Ticks;
 		private readonly OpenFileDialog openFileDialog = new OpenFileDialog();
 		public MainWindow()
 		{
 			InitializeComponent();
-			dtClockTime.Interval = new TimeSpan(0, 0, 30); //in Hour, Minutes, Second.
+            int.TryParse(txtEditorPeriodicity.Text, out int periodicity);
+
+            dtClockTime.Interval = new TimeSpan(periodicity, 0, 30); //in Hour, Minutes, Second.
 			dtClockTime.Tick += dtClockTime_Tick;
 			if ((bool)RunInBackground.IsChecked) dtClockTime.Start();
 		}
@@ -31,7 +35,8 @@ namespace ParsingSystem
 		{
 			Parse();
 			excelProccessor.Save();
-		}
+            mailProccessor.Send(txtEditorMail.Text, attachmentFileName: excelProccessor.Name);
+        }
 
 
 		private void btnOpenFile_Click(object sender, RoutedEventArgs e)
